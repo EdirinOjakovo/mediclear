@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #18203a;
+  background: #f4f6ff;
+}
+
+a {
+  color: #5b46e8;
+  text-decoration: none;
+}
+
+.login-page {
+  min-height: 100vh;
+}
+
+.topbar {
+  height: 72px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.topbar h1 {
+  margin: 0;
+  color: #5b46e8;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 24px;
+}
+
+.login-content {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 90px;
+  padding: 40px;
+}
+
+.brand-section {
+  text-align: center;
+  width: 280px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  font-size: 42px;
+  color: white;
+  background: #6554e8;
+}
+
+.brand-section h2 {
+  margin: 0 0 10px;
+  font-size: 36px;
+}
+
+.brand-section p {
+  color: #667085;
+}
+
+.login-card {
+  width: 390px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(40, 40, 90, 0.12);
+}
+
+.login-card h2,
+.login-card p {
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+.login-card label {
+  font-weight: bold;
+}
+
+.login-card input[type="email"],
+.login-card input[type="password"] {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #cfd4e5;
+  border-radius: 8px;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.login-options label {
+  font-weight: normal;
+}
+
+.login-card button {
+  margin-top: 8px;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #6554e8;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.signup-text {
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .login-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .login-card {
+    width: min(390px, 100%);
+  }
+}
