@@ -1,4 +1,4 @@
-function Login({ goToSignup }) {
+function Login({ goToSignup, goToDashboard }) {
   return (
     <main className="signup-page">
       <section className="signup-card">
@@ -8,7 +8,12 @@ function Login({ goToSignup }) {
         <input type="email" placeholder="Enter your email" />
         <input type="password" placeholder="Enter your password" />
 
-        <button type="button">Log In</button>
+        <button
+  type="button"
+  onClick={goToDashboard}
+>
+  Log In
+</button>
 
         <p>
           Don&apos;t have an account?{" "}

@@ -1,4 +1,4 @@
-function Signup() {
+function Signup({ goToLogin, goToDashboard }) {
   return (
     <main className="signup-page">
       <section className="signup-card">
@@ -11,10 +11,26 @@ function Signup() {
         <input type="password" placeholder="Password" />
         <input type="password" placeholder="Confirm password" />
 
-        <button>Sign Up</button>
+        <button type="button" onClick={goToDashboard}>
+          Create Account
+        </button>
 
         <p>
-          Already have an account? <a href="/">Log in</a>
+          Already have an account?{" "}
+          <button
+            type="button"
+            onClick={goToLogin}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#5b4df5",
+              cursor: "pointer",
+              padding: 0,
+              fontSize: "inherit",
+            }}
+          >
+            Log In
+          </button>
         </p>
       </section>
     </main>
