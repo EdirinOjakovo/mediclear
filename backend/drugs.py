@@ -1,7 +1,41 @@
 from flask import Blueprint, request, jsonify
 from db import cursor, connection
+import requests
 
 drug_routes = Blueprint("drugs", __name__)
+
+
+@drug_routes.route("/search-drug/<drug_name>", methods=["GET"])
+def search_drug(drug_name):
+    url = "https://api.fda.gov/drug/label.json"
+
+    params = {
+        "search": f'openfda.generic_name:"{drug_name}"',
+        "limit": 1
+    }
+
+    response = requests.get(url, params=params)
+
+    if response.status_code != 200:
+        return jsonify({"error": "Drug not found"}), 404
+
+    data = response.json()
+    result = data["results"][0]
+    openfda = result.get("openfda", {})
+
+    drug_info = {
+        "generic_name": openfda.get("generic_name", ["Unknown"])[0],
+        "brand_name": openfda.get("brand_name", ["Unknown"])[0],
+        "manufacturer": openfda.get("manufacturer_name", ["Unknown"])[0],
+        "purpose": result.get("purpose", ["Not available"])[0],
+        "indications": result.get("indications_and_usage", ["Not available"])[0],
+        "dosage": result.get("dosage_and_administration", ["Not available"])[0],
+        "warnings": result.get("warnings", ["Not available"])[0],
+        "adverse_reactions": result.get("adverse_reactions", ["Not available"])[0]
+    }
+
+    return jsonify(drug_info)
+
 
 @drug_routes.route("/save-drug", methods=["POST"])
 def save_drug():
