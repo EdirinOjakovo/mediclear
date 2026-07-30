@@ -1,4 +1,29 @@
 function DrugResults({ drugName, goToDashboard, goToSavedDrugs }) {
+  const openfda = drugName?.openfda || {};
+
+  const saveDrug = () => {
+    const savedDrugs =
+      JSON.parse(localStorage.getItem("savedDrugs")) || [];
+
+    const alreadySaved = savedDrugs.some(
+      (savedDrug) =>
+        JSON.stringify(savedDrug) === JSON.stringify(drugName)
+    );
+
+    if (!alreadySaved) {
+      savedDrugs.push(drugName);
+
+      localStorage.setItem(
+        "savedDrugs",
+        JSON.stringify(savedDrugs)
+      );
+
+      alert("Drug saved!");
+    } else {
+      alert("This drug is already saved.");
+    }
+  };
+
   return (
     <main className="dashboard-page">
       <header className="dashboard-header">
@@ -11,23 +36,46 @@ function DrugResults({ drugName, goToDashboard, goToSavedDrugs }) {
       </header>
 
       <section className="dashboard-content">
-        <button onClick={goToDashboard}>← Back to Search</button>
+        <h2>{openfda.generic_name?.[0] || "Unknown Drug"}</h2>
 
-        <div className="drug-result-card">
-          <h2>{drugName || "Medication Name"}</h2>
+        <p>
+          <strong>Brand Name:</strong>{" "}
+          {openfda.brand_name?.[0] || "Unknown"}
+        </p>
 
-          <p><strong>Purpose:</strong> Used to treat...</p>
+        <p>
+          <strong>Manufacturer:</strong>{" "}
+          {openfda.manufacturer_name?.[0] || "Unknown"}
+        </p>
 
-          <p><strong>Dosage:</strong> Take as directed by your healthcare provider.</p>
+        <p>
+          <strong>Purpose:</strong>{" "}
+          {drugName?.purpose?.[0] || "Not available"}
+        </p>
 
-          <p><strong>Warnings:</strong> Read all medication instructions before use.</p>
+        <p>
+          <strong>Indications:</strong>{" "}
+          {drugName?.indications_and_usage?.[0] || "Not available"}
+        </p>
 
-          <p><strong>Side Effects:</strong> Nausea, headache, dizziness.</p>
+        <p>
+          <strong>Dosage:</strong>{" "}
+          {drugName?.dosage_and_administration?.[0] || "Not available"}
+        </p>
 
-          <button onClick={goToSavedDrugs}>
-            Save Drug
-          </button>
-        </div>
+        <p>
+          <strong>Warnings:</strong>{" "}
+          {drugName?.warnings?.[0] || "Not available"}
+        </p>
+
+        <p>
+          <strong>Adverse Reactions:</strong>{" "}
+          {drugName?.adverse_reactions?.[0] || "Not available"}
+        </p>
+
+        <button onClick={saveDrug}>
+          Save Drug
+        </button>
       </section>
     </main>
   );

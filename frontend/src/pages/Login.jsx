@@ -26,7 +26,11 @@ function Login({ goToSignup, goToDashboard }) {
       goToDashboard();
     } else {
       const errorData = await response.json().catch(() => ({}));
-      alert(errorData.message || "Login failed. Please try again.");
+     alert(
+  errorData.error ||
+  errorData.message ||
+  "Login failed. Please try again."
+);
     }
 
   }

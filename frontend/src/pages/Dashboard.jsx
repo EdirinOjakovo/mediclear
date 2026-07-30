@@ -3,14 +3,30 @@ import { useState } from "react";
 function Dashboard({ goToResults, goToSavedDrugs, logOut }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  function handleSearch(event) {
-    event.preventDefault();
+  async function handleSearch(e) {
+    e.preventDefault();
 
-    if (!searchTerm.trim()) {
-      return;
+    if (!searchTerm.trim()) return;
+
+    try {
+      const response = await fetch(
+        `https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${encodeURIComponent(
+          searchTerm.trim()
+        )}"&limit=1`
+      );
+
+      if (!response.ok) {
+        alert("Drug not found.");
+        return;
+      }
+
+      const data = await response.json();
+
+      goToResults(data.results[0]);
+    } catch (error) {
+      console.error(error);
+      alert("Search failed.");
     }
-
-    goToResults(searchTerm.trim());
   }
 
   return (
@@ -19,28 +35,20 @@ function Dashboard({ goToResults, goToSavedDrugs, logOut }) {
         <h1>MediClear</h1>
 
         <nav>
-          <button type="button">Search</button>
-
-          <button type="button" onClick={goToSavedDrugs}>
-            Saved Drugs
-          </button>
-
-          <button type="button" onClick={logOut}>
-            Log Out
-          </button>
+          <button onClick={goToSavedDrugs}>Saved Drugs</button>
+          <button onClick={logOut}>Log Out</button>
         </nav>
       </header>
 
       <section className="dashboard-content">
-        <h2>Search Medications</h2>
-        <p>Find clear information about a medication.</p>
+        <h2>Search Medication</h2>
 
-        <form className="dashboard-search" onSubmit={handleSearch}>
+        <form onSubmit={handleSearch} className="dashboard-search">
           <input
             type="text"
-            placeholder="Search for a drug, e.g. ibuprofen"
+            placeholder="Enter medication name..."
             value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
 
           <button type="submit">Search</button>

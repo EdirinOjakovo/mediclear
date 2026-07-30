@@ -9,6 +9,22 @@ body {
   color: #18213d;
 }
 
+button,
+input {
+  font: inherit;
+}
+
+button {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* LOGIN AND SIGNUP */
+
 .signup-page {
   min-height: 100vh;
   display: grid;
@@ -28,9 +44,15 @@ body {
   box-shadow: 0 10px 30px rgba(41, 50, 100, 0.12);
 }
 
-.signup-card h1,
+.signup-card h1 {
+  margin: 0;
+  color: #5b45f5;
+  font-size: 36px;
+}
+
 .signup-card p {
   margin: 0;
+  color: #5f6780;
 }
 
 .signup-card input {
@@ -39,6 +61,12 @@ body {
   border: 1px solid #ccd2e3;
   border-radius: 8px;
   font-size: 15px;
+  outline: none;
+}
+
+.signup-card input:focus {
+  border-color: #5b45f5;
+  box-shadow: 0 0 0 3px rgba(91, 69, 245, 0.12);
 }
 
 .signup-card button {
@@ -53,123 +81,203 @@ body {
 
 .signup-card a {
   color: #5b45f5;
+  font-weight: bold;
+  text-decoration: none;
 }
+
 /* DASHBOARD */
 
-.dashboard-page{
-  min-height:100vh;
-  padding:40px;
+.dashboard-page {
+  min-height: 100vh;
+  padding: 40px;
 }
 
-.dashboard-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:40px;
+.dashboard-header {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.dashboard-header h1{
-  margin:0;
-  color:#5b4df5;
-  font-size:40px;
+.dashboard-header h1 {
+  margin: 0;
+  color: #5b45f5;
+  font-size: 40px;
 }
 
-.dashboard-header nav{
-  display:flex;
-  gap:12px;
+.dashboard-header nav {
+  display: flex;
+  gap: 12px;
 }
 
-.dashboard-header button{
-  border:none;
-  background:#5b4df5;
-  color:white;
-  padding:10px 18px;
-  border-radius:8px;
-  cursor:pointer;
+.dashboard-header button {
+  border: none;
+  background: #5b45f5;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.dashboard-content{
-  max-width:700px;
-  margin:auto;
-  background:white;
-  padding:40px;
-  border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.12);
+.dashboard-content {
+  max-width: 760px;
+  margin: auto;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(41, 50, 100, 0.12);
 }
 
-.dashboard-content h2{
-  margin-top:0;
+.dashboard-content h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 30px;
 }
 
-.dashboard-search{
-  display:flex;
-  gap:12px;
-  margin-top:24px;
+.dashboard-content p {
+  line-height: 1.6;
+  color: #4f5872;
 }
 
-.dashboard-search input{
-  flex:1;
-  padding:14px;
-  border:1px solid #ccd2e3;
-  border-radius:8px;
+.dashboard-search {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
 }
 
-.dashboard-search button{
-  border:none;
-  background:#5b4df5;
-  color:white;
-  padding:14px 22px;
-  border-radius:8px;
-  cursor:pointer;
+.dashboard-search input {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid #ccd2e3;
+  border-radius: 8px;
+  outline: none;
+}
+
+.dashboard-search input:focus {
+  border-color: #5b45f5;
+  box-shadow: 0 0 0 3px rgba(91, 69, 245, 0.12);
+}
+
+.dashboard-search button {
+  border: none;
+  background: #5b45f5;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* RESULTS */
 
-.drug-result-card{
-  margin-top:24px;
-  display:flex;
-  flex-direction:column;
-  gap:16px;
+.drug-result-card {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.drug-result-card button{
-  width:180px;
-  border:none;
-  background:#5b4df5;
-  color:white;
-  padding:12px;
-  border-radius:8px;
-  cursor:pointer;
+.drug-result-card p {
+  margin: 0;
+  padding: 14px;
+  background: #f8f8ff;
+  border-radius: 8px;
+}
+
+.drug-result-card button,
+.dashboard-content > button {
+  width: fit-content;
+  min-width: 150px;
+  border: none;
+  background: #5b45f5;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* SAVED DRUGS */
 
-.saved-list{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  margin-top:20px;
+.saved-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
 }
 
-.saved-drug-card{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px;
-  border:1px solid #e4e4e4;
-  border-radius:10px;
+.saved-drug-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  background: #f8f8ff;
+  border: 1px solid #e4e6f0;
+  border-radius: 10px;
 }
 
-.saved-drug-card div{
-  display:flex;
-  gap:10px;
+.saved-drug-card h3 {
+  margin: 0 0 6px;
 }
 
-.saved-drug-card button{
-  border:none;
-  background:#5b4df5;
-  color:white;
-  padding:8px 16px;
-  border-radius:6px;
-  cursor:pointer;
+.saved-drug-card p {
+  margin: 0;
+}
+
+.saved-drug-card div {
+  display: flex;
+  gap: 10px;
+}
+
+.saved-drug-card button {
+  border: none;
+  background: #5b45f5;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.saved-drug-card button:last-child {
+  background: #d94b61;
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .dashboard-page {
+    padding: 24px 16px;
+  }
+
+  .dashboard-header {
+    align-items: flex-start;
+    gap: 20px;
+    flex-direction: column;
+  }
+
+  .dashboard-header h1 {
+    font-size: 34px;
+  }
+
+  .dashboard-header nav {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .dashboard-content {
+    padding: 24px;
+  }
+
+  .dashboard-search {
+    flex-direction: column;
+  }
+
+  .dashboard-search button {
+    width: 100%;
+  }
+
+  .saved-drug-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
