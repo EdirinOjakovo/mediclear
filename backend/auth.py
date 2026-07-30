@@ -9,7 +9,8 @@ def register():
 
     data = request.get_json()
 
-    username = data["username"]
+    first_name = data["firstName"]
+    last_name = data["lastName"]
     email = data["email"]
     password = data["password"]
 
@@ -20,10 +21,10 @@ def register():
 
     cursor.execute(
         """
-        INSERT INTO users(username,email,password_hash)
-        VALUES(%s,%s,%s)
+        INSERT INTO users(first_name, last_name, email, password_hash)
+        VALUES (%s, %s, %s, %s)
         """,
-        (username,email,hashed.decode())
+        (first_name, last_name, email, hashed.decode())
     )
 
     connection.commit()
@@ -36,34 +37,22 @@ def register():
 
 @auth_routes.route("/login", methods=["POST"])
 def login():
-
     data = request.get_json()
-
     email = data["email"]
     password = data["password"]
 
     cursor.execute(
-        """
-        SELECT id,password_hash
-        FROM users
-        WHERE email=%s
-        """,
+        "SELECT id, password_hash FROM users WHERE email=%s",
         (email,)
     )
-
     user = cursor.fetchone()
 
     if user is None:
-        return jsonify({"error":"User not found"}),404
+        return jsonify({"error": "Invalid email or password"}), 401
 
-    user_id = user[0]
-    stored_hash = user[1]
+    user_id, stored_hash = user
 
     if bcrypt.checkpw(password.encode(), stored_hash.encode()):
+        return jsonify({"message": "Login successful", "user_id": user_id})
 
-        return jsonify({
-            "message":"Login successful",
-            "user_id":user_id
-        })
-
-    return jsonify({"error":"Incorrect password"}),401
+    return jsonify({"error": "Invalid email or password"}), 401
