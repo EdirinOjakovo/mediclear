@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from db import cursor, connection
 import requests
+import ai_overview
 
 drug_routes = Blueprint("drugs", __name__)
 
@@ -53,8 +54,9 @@ def save_drug():
         """,
         (user_id,drug_name,brand_name)
     )
-
+    print("hiiiii")
     connection.commit()
+    ai_overview.generate_summary(data)
 
     return jsonify({
         "message":"Drug saved"
