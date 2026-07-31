@@ -54,9 +54,8 @@ def save_drug():
         """,
         (user_id,drug_name,brand_name)
     )
-    print("hiiiii")
+    
     connection.commit()
-    ai_overview.generate_summary(data)
 
     return jsonify({
         "message":"Drug saved"
@@ -85,3 +84,16 @@ def my_library(user_id):
         })
 
     return jsonify(library)
+
+
+
+@drug_routes.route("/ai-summary", methods=["POST"])
+def ai_summary():
+
+    data = request.get_json()
+
+    summary = ai_overview.generate_summary(data["drugData"])
+
+    return jsonify({
+        "summary": summary
+    })

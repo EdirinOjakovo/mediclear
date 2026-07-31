@@ -1,5 +1,11 @@
+import { useState } from "react";
+
 function DrugResults({ drugName, goToDashboard, goToSavedDrugs }) {
   const openfda = drugName?.openfda || {};
+
+  const [showSummary, setShowSummary] = useState(false);
+  const [summary, setSummary] = useState(null);
+  const [loadingSummary, setLoadingSummary] = useState(false);
 
   const saveDrug = () => {
     const savedDrugs =
@@ -22,6 +28,32 @@ function DrugResults({ drugName, goToDashboard, goToSavedDrugs }) {
     } else {
       alert("This drug is already saved.");
     }
+  }
+
+  const getReadableSummary = async () => {
+    setLoadingSummary(true);
+
+    try {
+      const response = await fetch("http://localhost:5000/ai-summary", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          drugData: drugName,
+        }),
+      });
+
+      const data = await response.json();
+
+      setSummary(data.summary);
+      setShowSummary(true);
+    } catch (error) {
+      console.error(error);
+      alert("Unable to generate AI summary.");
+    }
+
+    setLoadingSummary(false);
   };
 
   return (
@@ -72,6 +104,32 @@ function DrugResults({ drugName, goToDashboard, goToSavedDrugs }) {
           <strong>Adverse Reactions:</strong>{" "}
           {drugName?.adverse_reactions?.[0] || "Not available"}
         </p>
+
+        <button
+          onClick={getReadableSummary}
+          disabled={loadingSummary}
+        >
+          {loadingSummary
+            ? "Generating..."
+            : "✨ Simplify"}
+        </button>
+
+        {showSummary && (
+          <div className="ai-summary">
+            <h3>AI Patient-Friendly Summary</h3>
+
+            <p>{summary}</p>
+
+            <button
+              onClick={() => setShowSummary(false)}
+            >
+              Hide Summary
+            </button>
+          </div>
+        )}
+
+        <br />
+
 
         <button onClick={saveDrug}>
           Save Drug
