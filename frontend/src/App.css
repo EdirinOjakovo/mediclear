@@ -168,7 +168,6 @@ button:hover {
   cursor: pointer;
 }
 
-/* RESULTS */
 
 .drug-result-card {
   margin-top: 24px;
@@ -194,9 +193,9 @@ button:hover {
   padding: 12px 18px;
   border-radius: 8px;
   cursor: pointer;
+  margin: 10px;
 }
 
-/* SAVED DRUGS */
 
 .saved-list {
   display: flex;
@@ -242,7 +241,6 @@ button:hover {
   background: #d94b61;
 }
 
-/* MOBILE */
 
 @media (max-width: 650px) {
   .dashboard-page {
@@ -281,3 +279,37 @@ button:hover {
     flex-direction: column;
   }
 }
+
+.hl {
+  cursor: pointer;
+  background: none;
+  border-bottom: 2px solid currentColor;
+  padding: 0 1px;
+}
+.hl-info      { color: #185fa5; border-bottom-style: dotted; }
+.hl-important { color: #997020; border-bottom-style: solid; }
+.hl-warning   { color: #a3411f; border-bottom-style: solid; font-weight: 500; }
+.hl-critical  { color: #a32d2d; background: #fcebeb; font-weight: 500; }
+
+.term-explainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  max-width: 320px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.term-explainer-close {
+  float: right;
+  border: none;
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+.term-reason { color: #666; font-size: 14px; }
+
+.notice-critical { color: #a32d2d; }
+.notice-warning  { color: #a3411f; }
